@@ -46,7 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
       5222,
       resource: 'xmppstone',
     );
-    final connection = xmpp.Connection(account)..connect();
+    final connection = xmpp.Connection(account)
+      ..connect()
+      ..connectionStateStream.listen((event) => L.d('链接状态: $event'));
     xmpp.MessageHandler.getInstance(connection)
         .messagesStream
         .listen((event) => L.d('收到消息: $event'));
