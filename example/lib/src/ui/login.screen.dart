@@ -4,6 +4,7 @@ import 'package:decorated_flutter/decorated_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:xmpp_stone/xmpp_stone.dart';
 import 'package:xmpp_stone_example/src/ui/conversations.screen.dart';
+import 'package:xmpp_stone_example/src/ui/loading.dialog.dart';
 
 Connection gConnection;
 String gAccount =
@@ -55,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleLogin() {
+    showLoading(context);
     final jid = Jid.fromFullJid(_accountController.text);
     final account = XmppAccountSettings(
       _accountController.text,
@@ -69,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ..connectionStateStream.listen((event) {
         switch (event) {
           case XmppConnectionState.Authenticated:
+            hideLoading(context);
             context.rootNavigator.push(
               MaterialPageRoute(builder: (context) => ConversationsScreen()),
             );
