@@ -31,16 +31,17 @@ class MessageHandler implements MessageApi {
   }
 
   @override
-  void sendMessage(Jid to, String text) {
-    _sendMessageStanza(to, text);
+  MessageStanza sendMessage(Jid to, String text) {
+    return _sendMessageStanza(to, text);
   }
 
-  void _sendMessageStanza(Jid jid, String text) {
+  MessageStanza _sendMessageStanza(Jid jid, String text) {
     var stanza =
         MessageStanza(AbstractStanza.getRandomId(), MessageStanzaType.CHAT);
     stanza.toJid = jid;
     stanza.fromJid = _connection.fullJid;
     stanza.body = text;
     _connection.writeStanza(stanza);
+    return stanza;
   }
 }
