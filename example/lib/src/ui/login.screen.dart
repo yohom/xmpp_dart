@@ -3,17 +3,14 @@ import 'dart:io';
 import 'package:decorated_flutter/decorated_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:xmpp_stone/xmpp_stone.dart';
-import 'package:xmpp_stone_example/src/ui/conversations.screen.dart';
 import 'package:xmpp_stone_example/src/ui/loading.dialog.dart';
+
+import 'friends.screen.dart';
 
 Connection gConnection;
 String gAccount =
     Platform.isAndroid ? 'user003@xmpp.tuobaye.cn' : 'yohom@xmpp.tuobaye.cn';
 String gPassword = Platform.isAndroid ? '123456' : 'yohom123456';
-
-String gPeerId = Platform.isAndroid
-    ? 'yohom@openfire.tuobaye.cn'
-    : 'user003@openfire.tuobaye.cn';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -72,8 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
         switch (event) {
           case XmppConnectionState.Authenticated:
             hideLoading(context);
-            context.rootNavigator.push(
-              MaterialPageRoute(builder: (context) => ConversationsScreen()),
+            context.rootNavigator.pushReplacement(
+              MaterialPageRoute(builder: (context) => FriendsScreen()),
             );
             break;
           case XmppConnectionState.AuthenticationFailure:
